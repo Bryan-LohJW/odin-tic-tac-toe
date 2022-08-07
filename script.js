@@ -6,6 +6,7 @@ const displayModule = (function() {
 
         const title = document.createElement('div');
         title.classList.add('title');
+        title.textContent = 'Welcome'
         gameBlock.appendChild(title);
 
         const playingField = document.createElement('div');
@@ -21,20 +22,27 @@ const displayModule = (function() {
 
         const gameAction = document.createElement('button');
         gameAction.classList.add('gameAction');
+        gameAction.textContent = 'START';
         gameBlock.appendChild(gameAction);
 
         const inputContainer = document.createElement('div');
         inputContainer.classList.add('inputContainer');
+
         const player1 = document.createElement('input');
         player1.setAttribute('type', 'text');
         player1.classList.add(`playerInput1`);
+        player1.setAttribute('placeholder', 'Player 1');
         inputContainer.appendChild(player1);
+
         const selector = document.createElement('div');
-        selector.classList.add('iconSelector')
+        selector.classList.add('iconSelector');
+        selector.textContent = 'X/O';
         inputContainer.appendChild(selector);
+
         const player2 = document.createElement('input');
         player2.setAttribute('type', 'text');
         player2.classList.add(`playerInput2`);
+        player2.setAttribute('placeholder', 'Player 2');
         inputContainer.appendChild(player2);
         gameBlock.appendChild(inputContainer);
     }

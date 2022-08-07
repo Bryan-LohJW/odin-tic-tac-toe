@@ -71,6 +71,7 @@ table {
     background-color: white;
     border: var(--border-value);
     border-radius: var(--block-radius);
+    font-size: 4rem;
 
     text-align: center;
 }
@@ -96,10 +97,14 @@ table {
 .gameBlock .gameAction {
     width: 300px;
     height: 100px;
+
+    border-radius: var(--block-radius);
+    font-size: 4rem;
 }
 
 .inputContainer {
     display: flex;
+    align-items: center;
     gap: 5rem;
 }
 
@@ -108,9 +113,17 @@ table {
     height: 40px;
     font-size: 2rem;
     text-align: center;
+    border-radius: var(--block-radius);
 }
 
 .iconSelector {
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     border: var(--border-value);
+    border-radius: var(--block-radius);
+    padding: 1rem 3rem;
+    background-color: var(--background-color);
+    font-size: 2rem;
 }
