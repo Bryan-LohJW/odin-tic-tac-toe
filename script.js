@@ -23,15 +23,25 @@ const displayModule = (function() {
         gameAction.classList.add('gameAction');
         gameBlock.appendChild(gameAction);
 
-        for(i=1; i<3; i++) {
-            const player = document.createElement('input');
-            player.setAttribute('type', 'text');
-            player.classList.add(`playerInput${i}`);
-            gameBlock.appendChild(player);
-        }
+        const inputContainer = document.createElement('div');
+        inputContainer.classList.add('inputContainer');
+        const player1 = document.createElement('input');
+        player1.setAttribute('type', 'text');
+        player1.classList.add(`playerInput1`);
+        inputContainer.appendChild(player1);
+        const selector = document.createElement('div');
+        selector.classList.add('iconSelector')
+        inputContainer.appendChild(selector);
+        const player2 = document.createElement('input');
+        player2.setAttribute('type', 'text');
+        player2.classList.add(`playerInput2`);
+        inputContainer.appendChild(player2);
+        gameBlock.appendChild(inputContainer);
     }
 
     return{
         _createStart:_createStart
     }
 })();
+
+displayModule._createStart();
