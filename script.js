@@ -52,4 +52,8 @@ const displayModule = (function() {
     }
 })();
 
+const Player = (name, icon) => {
+    return {name, icon};
+};
+
 displayModule._createStart();
