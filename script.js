@@ -47,8 +47,24 @@ const displayModule = (function() {
         gameBlock.appendChild(inputContainer);
     }
 
+    const _startEvent = () => {
+        const start = document.querySelector('.gameAction');
+        start.addEventListener('click', function(){gameModule.setPlayerName()});
+    }
+
+    const _toggleEvent = () => {
+        const toggle = document.querySelector('.iconSelector');
+        toggle.addEventListener('click', function(){gameModule.toggleChoice()});
+    }
+
+    const eventListener = () => {
+        _startEvent();
+        _toggleEvent();
+    }
+
     return{
-        _createStart:_createStart
+        _createStart:_createStart,
+        eventListener:eventListener
     }
 })();
 
@@ -56,4 +72,35 @@ const Player = (name, icon) => {
     return {name, icon};
 };
 
+const gameModule = (function() {
+    let player1 = Player('Player 1', 'X');
+    let player2 = Player('Player 2', 'O');
+    let status = 'prep';
+
+    const setPlayerName = () => {
+        player1.name = document.querySelector('.playerInput1').value;
+        player2.name = document.querySelector('.playerInput2').value;
+        status = 'started';
+    }
+    const toggleChoice = () => {
+        if (status === 'started') {return};
+        if (player1.icon === 'X') {
+            player1.icon = 'O';
+            player2.icon = 'X';
+            document.querySelector('.iconSelector').textContent = 'O/X';
+        } else {
+            player1.icon = 'X';
+            player2.icon = 'O';
+            document.querySelector('.iconSelector').textContent = 'X/O';
+        }
+    }
+    return {
+        player1,
+        player2,
+        setPlayerName:setPlayerName,
+        toggleChoice:toggleChoice,
+    }
+})();
+
 displayModule._createStart();
+displayModule.eventListener();
