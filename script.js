@@ -183,9 +183,11 @@ const gameModule = (function() {
                 _finishEvent();
             }
         })();
-        
         //tie
         (function(){
+            if(gameModule.status === 'finish') {
+                return;
+            }
             let j = 0;
             for (let i = 0; i<9; i++) {
                 if(tiles[i].textContent === '') {
