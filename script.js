@@ -95,10 +95,20 @@ const gameModule = (function() {
         const tiles = document.getElementsByClassName('tile');
         let i = 0;
         for(let i = 0; i < tiles.length; i++) {
-            tiles[i].addEventListener('click', function(e){gameModule.tileClick(e)});
+            tiles[i].addEventListener('click', function(e){_tileClick(e)});
             tiles[i].classList.add('unclicked');
         }
     }
+
+    const _tileClick = (e) => {
+        if(e.target.textContent !== '') {
+            return;
+        }
+        e.target.textContent = currentPlayer.icon;
+        e.target.classList.remove('unclicked');
+        _turnChange();
+    }
+
 
     const setPlayerName = () => {
         _player1.name = document.querySelector('.playerInput1').value;
@@ -122,20 +132,11 @@ const gameModule = (function() {
         }
     }
 
-    const tileClick = (e) => {
-        if(e.target.textContent !== '') {
-            return;
-        }
-        e.target.textContent = currentPlayer.icon;
-        e.target.classList.remove('unclicked');
-        _turnChange();
-    }
 
     return {
         currentPlayer,
         setPlayerName:setPlayerName,
         toggleChoice:toggleChoice,
-        tileClick:tileClick,
     }
 })();
 
