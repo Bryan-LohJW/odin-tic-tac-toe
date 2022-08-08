@@ -106,7 +106,69 @@ const gameModule = (function() {
         }
         e.target.textContent = currentPlayer.icon;
         e.target.classList.remove('unclicked');
+        _checkWin();
         _turnChange();
+    }
+
+    const _checkWin = () => {
+        const tiles = document.getElementsByClassName('tile');
+        const tile0 = tiles[0].textContent;
+        const tile1 = tiles[1].textContent;
+        const tile2 = tiles[2].textContent;
+        const tile3 = tiles[3].textContent;
+        const tile4 = tiles[4].textContent;
+        const tile5 = tiles[5].textContent;
+        const tile6 = tiles[6].textContent;
+        const tile7 = tiles[7].textContent;
+        const tile8 = tiles[8].textContent;
+        //line0
+        (function(){
+            if(tile0 === tile1 & tile1 === tile2 & tile0 !== '') {
+                alert('hi');
+            }
+        })();
+        //line1
+        (function(){
+            if(tile3 === tile4 & tile4 === tile5 & tile3 !== '') {
+                alert('hi');
+            }
+        })();
+        //line3
+        (function(){
+            if(tile6 === tile7 & tile7 === tile8 & tile6 !== '') {
+                alert('hi');
+            }
+        })();
+        //line4
+        (function(){
+            if(tile0 === tile3 & tile3 === tile6 & tile0 !== '') {
+                alert('hi');
+            }
+        })();
+        //line5
+        (function(){
+            if(tile1 === tile4 & tile4 === tile7 & tile1 !== '') {
+                alert('hi');
+            }
+        })();        
+        //line6
+        (function(){
+            if(tile2 === tile5 & tile5 === tile8 & tile2 !== '') {
+                alert('hi');
+            }
+        })();      
+        //line7
+        (function(){
+            if(tile0 === tile4 & tile4 === tile8 & tile0 !== '') {
+                alert('hi');
+            }
+        })();
+        //line8
+        (function(){
+            if(tile3 === tile4 & tile4 === tile5 & tile3 !== '') {
+                alert('hi');
+            }
+        })();                               
     }
 
 
