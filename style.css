@@ -127,3 +127,7 @@ table {
     background-color: var(--background-color);
     font-size: 2rem;
 }
+
+.unclicked:hover {
+    background-color: aqua;
+}

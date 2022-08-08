@@ -31,7 +31,7 @@ const displayModule = (function() {
         const player1 = document.createElement('input');
         player1.setAttribute('type', 'text');
         player1.classList.add(`playerInput1`);
-        player1.setAttribute('placeholder', 'Player 1');
+        player1.setAttribute('value', 'Player 1');
         inputContainer.appendChild(player1);
 
         const selector = document.createElement('div');
@@ -42,7 +42,7 @@ const displayModule = (function() {
         const player2 = document.createElement('input');
         player2.setAttribute('type', 'text');
         player2.classList.add(`playerInput2`);
-        player2.setAttribute('placeholder', 'Player 2');
+        player2.setAttribute('value', 'Player 2');
         inputContainer.appendChild(player2);
         gameBlock.appendChild(inputContainer);
     }
@@ -64,7 +64,7 @@ const displayModule = (function() {
 
     return{
         _createStart:_createStart,
-        eventListener:eventListener
+        eventListener:eventListener,
     }
 })();
 
@@ -73,32 +73,69 @@ const Player = (name, icon) => {
 };
 
 const gameModule = (function() {
-    let player1 = Player('Player 1', 'X');
-    let player2 = Player('Player 2', 'O');
+    let _player1 = Player('Player 1', 'X');
+    let _player2 = Player('Player 2', 'O');
+    let currentPlayer = Player('', '');
     let status = 'prep';
 
-    const setPlayerName = () => {
-        player1.name = document.querySelector('.playerInput1').value;
-        player2.name = document.querySelector('.playerInput2').value;
-        status = 'started';
+    const _turnChange = () => {
+        switch(currentPlayer.name) {
+            case _player1.name:
+                currentPlayer.name = _player2.name;
+                currentPlayer.icon = _player2.icon;
+                break;
+            case _player2.name:
+                currentPlayer.name = _player1.name;
+                currentPlayer.icon = _player1.icon;
+                break;
+        }
     }
+
+    const _gameStart = () => {
+        const tiles = document.getElementsByClassName('tile');
+        let i = 0;
+        for(let i = 0; i < tiles.length; i++) {
+            tiles[i].addEventListener('click', function(e){gameModule.tileClick(e)});
+            tiles[i].classList.add('unclicked');
+        }
+    }
+
+    const setPlayerName = () => {
+        _player1.name = document.querySelector('.playerInput1').value;
+        _player2.name = document.querySelector('.playerInput2').value;
+        status = 'started';
+        currentPlayer.name = _player1.name;
+        currentPlayer.icon = _player1.icon;
+        _gameStart();
+    }
+
     const toggleChoice = () => {
         if (status === 'started') {return};
-        if (player1.icon === 'X') {
-            player1.icon = 'O';
-            player2.icon = 'X';
+        if (_player1.icon === 'X') {
+            _player1.icon = 'O';
+            _player2.icon = 'X';
             document.querySelector('.iconSelector').textContent = 'O/X';
         } else {
-            player1.icon = 'X';
-            player2.icon = 'O';
+            _player1.icon = 'X';
+            _player2.icon = 'O';
             document.querySelector('.iconSelector').textContent = 'X/O';
         }
     }
+
+    const tileClick = (e) => {
+        if(e.target.textContent !== '') {
+            return;
+        }
+        e.target.textContent = currentPlayer.icon;
+        e.target.classList.remove('unclicked');
+        _turnChange();
+    }
+
     return {
-        player1,
-        player2,
+        currentPlayer,
         setPlayerName:setPlayerName,
         toggleChoice:toggleChoice,
+        tileClick:tileClick,
     }
 })();
 
