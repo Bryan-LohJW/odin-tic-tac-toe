@@ -1,6 +1,4 @@
 const displayModule = (function() {
-    let _displayState = 'start';
-
     function _createStart() {
         const gameBlock = document.querySelector('.gameBlock');
 
@@ -90,8 +88,17 @@ const gameModule = (function() {
                 break;
         }
     }
+    
+    const _resetState = () => {
+        _player1.name = 'Player 1';
+        _player1.icon = 'X';
+        _player2.name = 'Player 2';
+        _player2.icon = 'O';
+        gameModule.status = 'prep';
+    }
 
     const _gameStart = () => {
+        gameModule.status = 'started';
         const tiles = document.getElementsByClassName('tile');
         let i = 0;
         for(let i = 0; i < tiles.length; i++) {
@@ -101,7 +108,7 @@ const gameModule = (function() {
     }
 
     const _tileClick = (e) => {
-        if(e.target.textContent !== '') {
+        if(e.target.textContent !== '' || gameModule.status !== 'started') {
             return;
         }
         e.target.textContent = currentPlayer.icon;
@@ -121,68 +128,96 @@ const gameModule = (function() {
         const tile6 = tiles[6].textContent;
         const tile7 = tiles[7].textContent;
         const tile8 = tiles[8].textContent;
-        //line0
+        //first horizontal
         (function(){
             if(tile0 === tile1 & tile1 === tile2 & tile0 !== '') {
                 alert('hi');
             }
         })();
-        //line1
+        //second horizontal
         (function(){
             if(tile3 === tile4 & tile4 === tile5 & tile3 !== '') {
                 alert('hi');
+                _finishEvent();
             }
         })();
-        //line3
+        //third horizontal
         (function(){
             if(tile6 === tile7 & tile7 === tile8 & tile6 !== '') {
                 alert('hi');
+                _finishEvent();
             }
         })();
-        //line4
+        //first vertical
         (function(){
             if(tile0 === tile3 & tile3 === tile6 & tile0 !== '') {
                 alert('hi');
+                _finishEvent();
             }
         })();
-        //line5
+        //second vertical
         (function(){
             if(tile1 === tile4 & tile4 === tile7 & tile1 !== '') {
                 alert('hi');
+                _finishEvent();
             }
         })();        
-        //line6
+        //third vertical
         (function(){
             if(tile2 === tile5 & tile5 === tile8 & tile2 !== '') {
                 alert('hi');
+                _finishEvent();
             }
         })();      
-        //line7
+        //backward diagonal
         (function(){
             if(tile0 === tile4 & tile4 === tile8 & tile0 !== '') {
                 alert('hi');
+                _finishEvent();
             }
         })();
-        //line8
+        //forward diagonal
         (function(){
             if(tile3 === tile4 & tile4 === tile5 & tile3 !== '') {
                 alert('hi');
+                _finishEvent();
             }
         })();                               
     }
 
+    const _finishEvent = () => {
+        gameModule.status = 'finish';
+        const tiles = document.getElementsByClassName('tile');
+        let i = 0;
+        for(let i = 0; i < tiles.length; i++) {
+            tiles[i].classList.remove('unclicked');
+        }
+        const actionButton = document.querySelector('.gameAction');
+        actionButton.textContent = 'RESET';
+        actionButton.addEventListener('click', function(){_resetGame()});
+    }
+
+    const _resetGame = () => {
+        const block = document.querySelector('.gameBlock');
+        while(block.hasChildNodes()) {
+            block.removeChild(block.firstChild);
+        }
+        alert('end');
+        displayModule._createStart();
+        _resetState();
+        displayModule.eventListener();
+    }
 
     const setPlayerName = () => {
         _player1.name = document.querySelector('.playerInput1').value;
         _player2.name = document.querySelector('.playerInput2').value;
-        status = 'started';
         currentPlayer.name = _player1.name;
         currentPlayer.icon = _player1.icon;
         _gameStart();
     }
 
     const toggleChoice = () => {
-        if (status === 'started') {return};
+        if (gameModule.status !== 'prep') {return};
         if (_player1.icon === 'X') {
             _player1.icon = 'O';
             _player2.icon = 'X';
@@ -197,6 +232,7 @@ const gameModule = (function() {
 
     return {
         currentPlayer,
+        status,
         setPlayerName:setPlayerName,
         toggleChoice:toggleChoice,
     }
