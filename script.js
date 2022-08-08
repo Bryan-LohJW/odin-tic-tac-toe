@@ -77,6 +77,9 @@ const gameModule = (function() {
     let status = 'prep';
 
     const _turnChange = () => {
+        if(gameModule.status === 'finish') {
+            return;
+        }
         switch(currentPlayer.name) {
             case _player1.name:
                 currentPlayer.name = _player2.name;
@@ -87,6 +90,8 @@ const gameModule = (function() {
                 currentPlayer.icon = _player1.icon;
                 break;
         }
+        const title = document.querySelector('.title');
+        title.textContent = `${currentPlayer.name}'s turn`;
     }
     
     const _resetState = () => {
@@ -105,6 +110,8 @@ const gameModule = (function() {
             tiles[i].addEventListener('click', function(e){_tileClick(e)});
             tiles[i].classList.add('unclicked');
         }
+        const title = document.querySelector('.title');
+        title.textContent = `${currentPlayer.name}'s turn`;
     }
 
     const _tileClick = (e) => {
@@ -131,55 +138,48 @@ const gameModule = (function() {
         //first horizontal
         (function(){
             if(tile0 === tile1 & tile1 === tile2 & tile0 !== '') {
-                alert('hi');
+                _finishEvent();
             }
         })();
         //second horizontal
         (function(){
             if(tile3 === tile4 & tile4 === tile5 & tile3 !== '') {
-                alert('hi');
                 _finishEvent();
             }
         })();
         //third horizontal
         (function(){
             if(tile6 === tile7 & tile7 === tile8 & tile6 !== '') {
-                alert('hi');
                 _finishEvent();
             }
         })();
         //first vertical
         (function(){
             if(tile0 === tile3 & tile3 === tile6 & tile0 !== '') {
-                alert('hi');
                 _finishEvent();
             }
         })();
         //second vertical
         (function(){
             if(tile1 === tile4 & tile4 === tile7 & tile1 !== '') {
-                alert('hi');
                 _finishEvent();
             }
         })();        
         //third vertical
         (function(){
             if(tile2 === tile5 & tile5 === tile8 & tile2 !== '') {
-                alert('hi');
                 _finishEvent();
             }
         })();      
         //backward diagonal
         (function(){
             if(tile0 === tile4 & tile4 === tile8 & tile0 !== '') {
-                alert('hi');
                 _finishEvent();
             }
         })();
         //forward diagonal
         (function(){
             if(tile3 === tile4 & tile4 === tile5 & tile3 !== '') {
-                alert('hi');
                 _finishEvent();
             }
         })();                               
@@ -195,6 +195,8 @@ const gameModule = (function() {
         const actionButton = document.querySelector('.gameAction');
         actionButton.textContent = 'RESET';
         actionButton.addEventListener('click', function(){_resetGame()});
+        const title = document.querySelector('.title');
+        title.textContent = `${currentPlayer.name} won`;
     }
 
     const _resetGame = () => {
@@ -202,7 +204,6 @@ const gameModule = (function() {
         while(block.hasChildNodes()) {
             block.removeChild(block.firstChild);
         }
-        alert('end');
         displayModule._createStart();
         _resetState();
         displayModule.eventListener();
