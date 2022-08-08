@@ -179,10 +179,25 @@ const gameModule = (function() {
         })();
         //forward diagonal
         (function(){
-            if(tile3 === tile4 & tile4 === tile5 & tile3 !== '') {
+            if(tile3 === tile4 & tile4 === tile6 & tile3 !== '') {
                 _finishEvent();
             }
-        })();                               
+        })();
+        
+        //tie
+        (function(){
+            let j = 0;
+            for (let i = 0; i<9; i++) {
+                if(tiles[i].textContent === '') {
+                    j++;
+                }
+            }
+            console.log(j);
+            if(j===0) {
+                currentPlayer.name = 'Nobody';
+                _finishEvent();
+            }
+        })();
     }
 
     const _finishEvent = () => {
