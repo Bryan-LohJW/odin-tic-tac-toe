@@ -51,6 +51,7 @@ table {
     --background-color: aliceblue;
     --border-value: 0.2rem solid black;
     --block-radius: 0.5rem;
+    --button-color: #FFA500;
 }
 
 .gameBlock {
@@ -90,14 +91,14 @@ table {
 }
 
 .playingField > .tile {
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
 
     border: var(--border-value);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10rem;
+    font-size: 5rem;
 
     transition: 700ms;
 }
@@ -113,6 +114,7 @@ table {
 
     border-radius: var(--block-radius);
     font-size: 4rem;
+    background-color: var(--button-color);
 }
 
 .active {
@@ -145,7 +147,7 @@ table {
     border: var(--border-value);
     border-radius: var(--block-radius);
     padding: 1rem 3rem;
-    background-color: var(--background-color);
+    background-color: var(--button-color);
     font-size: 2rem;
 }
 
