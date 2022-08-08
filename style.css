@@ -73,7 +73,9 @@ table {
     border-radius: var(--block-radius);
     font-size: 4rem;
 
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
 }
 
 .gameBlock > .playingField {
@@ -92,6 +94,17 @@ table {
     width: 200px;
 
     border: var(--border-value);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10rem;
+
+    transition: 700ms;
+}
+
+.winningTile {
+    transform: scale(1.2);
+    background-color: aqua;
 }
 
 .gameBlock .gameAction {
@@ -100,6 +113,14 @@ table {
 
     border-radius: var(--block-radius);
     font-size: 4rem;
+}
+
+.active {
+    transition: 700ms;
+}
+
+.active:hover {
+    transform: scale(1.2);
 }
 
 .inputContainer {
